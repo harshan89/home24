@@ -7,6 +7,7 @@ import { getCategoryRequest } from "@/services/categoryService";
 import LeftMenu from "@/components/LeftMenu";
 import { useSelector } from "react-redux";
 import { categoryListSelector } from "@/state/category/categoryState";
+import TableComponent from "@/components/TableComponent";
 
 const { Header, Content, Footer } = Layout;
 
@@ -25,12 +26,12 @@ const App: React.FC = () => {
     <Layout style={{ minHeight: "100vh" }}>
       <LeftMenu categoryList={categoryList} />
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }} />
+        {/* <Header style={{ padding: 0, background: colorBgContainer }} /> */}
         <Content style={{ margin: "0 16px" }}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
+          {/* <Breadcrumb style={{ margin: "16px 0" }}>
             <Breadcrumb.Item>User</Breadcrumb.Item>
             <Breadcrumb.Item>Bill</Breadcrumb.Item>
-          </Breadcrumb>
+          </Breadcrumb> */}
           <div
             style={{
               padding: 24,
@@ -39,7 +40,7 @@ const App: React.FC = () => {
               borderRadius: borderRadiusLG,
             }}
           >
-            Bill is a cat.
+            <TableComponent />
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>Home24 - Harshan</Footer>

@@ -6,14 +6,16 @@ abstract class AbstractProduct implements IProduct {
     name: string;
     price: number;
     stockQuantity: number;
+    categoryType: string;
     category: ICategory;
     description?: string;
 
-    constructor(id: number, name: string, price: number, stockQuantity: number, category: ICategory, description?: string) {
+    constructor(id: number, name: string, price: number, stockQuantity: number, categoryType: string, category: ICategory, description?: string) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.stockQuantity = stockQuantity;
+        this.categoryType = categoryType;
         this.category = category;
         this.description = description;
     }
@@ -40,6 +42,7 @@ abstract class AbstractProduct implements IProduct {
             name: this.name,
             price: this.price,
             stockQuantity: this.stockQuantity,
+            categoryType: this.categoryType,
             category: this.category,
             description: this.description,
         };
@@ -51,6 +54,7 @@ abstract class AbstractProduct implements IProduct {
             this.name = data["name"];
             this.price = data["price"];
             this.stockQuantity = data["stockQuantity"];
+            this.categoryType = data["categoryType"];
             this.category = data["category"];
             this.description = data["description"];
         }

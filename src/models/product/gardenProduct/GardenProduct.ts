@@ -10,12 +10,13 @@ class GardenProduct extends AbstractProduct implements IGardenProduct {
         name: string,
         price: number,
         stockQuantity: number,
+        categoryType: string,
         category: ICategory,
         plantType: string,
         requiresSunlight: boolean,
         description?: string
     ) {
-        super(id, name, price, stockQuantity, category, description);
+        super(id, name, price, stockQuantity, categoryType, category, description);
         this.plantType = plantType;
         this.requiresSunlight = requiresSunlight;
     }

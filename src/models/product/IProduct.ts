@@ -5,6 +5,7 @@ export interface ISerializedProduct {
     name: string;
     price: number;
     stockQuantity: number;
+    categoryType: string;
     category: ICategory;
     description?: string;
 }

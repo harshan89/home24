@@ -2,8 +2,9 @@ import { ICategory } from "@/models/category/ICategory";
 import { Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
 import SubMenu from "antd/es/menu/SubMenu";
+import Image from "next/image";
 import { FC, useState } from "react";
-
+import logo from "@/assets/logo.svg";
 interface Props {
   categoryList: ICategory[];
 }
@@ -26,14 +27,12 @@ const LeftMenu: FC<Props> = ({ categoryList }) => {
     return categories.map((category) => {
       if (category.subCategories && category.subCategories.length > 0) {
         return (
-          <SubMenu key={category.id.toString()} title={category.name}>
+          <SubMenu key={category.id} title={category.name}>
             {generateMenuItems(category.subCategories)}
           </SubMenu>
         );
       }
-      return (
-        <Menu.Item key={category.id.toString()}>{category.name}</Menu.Item>
-      );
+      return <Menu.Item key={category.id}>{category.name}</Menu.Item>;
     });
   };
 
@@ -44,7 +43,9 @@ const LeftMenu: FC<Props> = ({ categoryList }) => {
       onCollapse={(value) => setCollapsed(value)}
       style={siderStyle}
     >
-      <div className="demo-logo-vertical" />
+      <div className="flex w-full pl-5 py-4">
+        <Image src={logo} alt="logo" width={100} height={100} />
+      </div>
       <Menu theme="dark" defaultSelectedKeys={["1"]}>
         {generateMenuItems(categoryList)}
       </Menu>

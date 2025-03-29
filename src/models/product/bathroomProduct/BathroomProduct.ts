@@ -11,12 +11,13 @@ class BathroomProduct extends AbstractProduct implements IBathroomProduct {
         name: string,
         price: number,
         stockQuantity: number,
+        categoryType: string,
         category: ICategory,
         waterproof: boolean,
         installationType: string,
         description?: string,
     ) {
-        super(id, name, price, stockQuantity, category, description);
+        super(id, name, price, stockQuantity, categoryType, category, description);
         this.waterproof = waterproof;
         this.installationType = installationType;
     }
