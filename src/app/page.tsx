@@ -1,7 +1,7 @@
 "use client";
 
-import { getProductList } from "@/api/endpoints/product/productApi";
 import IProduct from "@/models/product/IProduct";
+import { fetchProductList } from "@/services/productService";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -9,16 +9,7 @@ export default function Home() {
   const [productList, setProductList] = useState<IProduct[]>([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const productList: IProduct[] = await getProductList(0, 5);
-        setProductList(productList);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
+    fetchProductList(0, 10);
   }, []);
 
   return (
