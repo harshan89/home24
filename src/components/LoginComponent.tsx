@@ -1,4 +1,10 @@
+"use client"
+
+import { userLoginRequest } from "@/services/userService";
+import { useRouter } from 'next/navigation';
+
 const LoginComponent = () => {
+  const navigate = useRouter();
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -8,8 +14,10 @@ const LoginComponent = () => {
     const password = (form.elements.namedItem("password") as HTMLInputElement)
       .value;
 
-    console.log("Username:", username);
-    console.log("Password:", password);
+    if (username === "" && password === "") return false;
+
+    navigate?.push("/product");
+    // userLoginRequest({ username, password });
   };
 
   return (
