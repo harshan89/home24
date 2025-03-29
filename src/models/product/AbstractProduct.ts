@@ -1,5 +1,5 @@
 import { ICategory } from "../category/ICategory";
-import IProduct from "./IProduct";
+import IProduct, { ISerializedProduct } from "./IProduct";
 
 abstract class AbstractProduct implements IProduct {
     id?: number;
@@ -32,6 +32,28 @@ abstract class AbstractProduct implements IProduct {
 
     toString(): string {
         return `${this.name} (ID: ${this.id}, Category: ${this.category.name}) - $${this.getFormattedPrice()}`;
+    }
+
+    serialize(): ISerializedProduct {
+        return {
+            id: this.id,
+            name: this.name,
+            price: this.price,
+            stockQuantity: this.stockQuantity,
+            category: this.category,
+            description: this.description,
+        };
+    }
+
+    deserialize(data: ISerializedProduct): void {
+        if (data) {
+            this.id = data["id"];
+            this.name = data["name"];
+            this.price = data["price"];
+            this.stockQuantity = data["stockQuantity"];
+            this.category = data["category"];
+            this.description = data["description"];
+        }
     }
 }
 

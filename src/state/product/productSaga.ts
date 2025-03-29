@@ -1,16 +1,16 @@
 import { productApi } from '@/api';
 import IProduct from '@/models/product/IProduct';
-import { ApiResponse } from '@/types/api';
 import { call, put, select, takeEvery } from 'redux-saga/effects';
 import { fetchProductFailure, fetchProductSuccess } from './productState';
 
 function* fetchProductRequestSaga() {
     try {
-        const response: ApiResponse<IProduct[]> = yield call(() =>
+        const productList: IProduct[] = yield call(() =>
             productApi.getProductList(0, 5)
         );
-        if (response) {
-            yield put(fetchProductSuccess(response.data));
+
+        if (productList) {
+            yield put(fetchProductSuccess(productList.map(product => product.serialize())));
         } else {
             yield put(fetchProductFailure());
         }

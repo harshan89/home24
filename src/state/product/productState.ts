@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IRootState } from '../rootState';
-import IProduct from '@/models/product/IProduct';
+import IProduct, { ISerializedProduct } from '@/models/product/IProduct';
 
 export interface IProductSlice {
-    productList: IProduct[] | null;
+    productList: ISerializedProduct[] | null;
     isLoading: boolean;
 }
 
@@ -17,8 +17,9 @@ export const ProductSlice = createSlice({
         fetchProductRequest: (state) => {
             state.isLoading = true;
         },
-        fetchProductSuccess: (state, action: PayloadAction<IProduct[]>) => {
-            state.productList = action.payload;
+        fetchProductSuccess: (state, action: PayloadAction<ISerializedProduct[]>) => {
+            const serializedProductList = action.payload;
+            state.productList = serializedProductList;
             state.isLoading = false;
         },
         fetchProductFailure: (state) => {
@@ -27,7 +28,7 @@ export const ProductSlice = createSlice({
     }
 });
 
-export const productListSelector = (state: IRootState) => state.productReducer.productList;
+export const productListSelector = (state: IRootState) => state.productReducer.productList
 
 export const {
     fetchProductRequest,

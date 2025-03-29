@@ -1,12 +1,12 @@
 "use client";
 
-import IProduct from "@/models/product/IProduct";
 import { fetchProductList } from "@/services/productService";
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import { productListSelector } from "@/state/product/productState";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 export default function Home() {
-  const [productList, setProductList] = useState<IProduct[]>([]);
+  const productList = useSelector(productListSelector) || [];
 
   useEffect(() => {
     fetchProductList(0, 10);

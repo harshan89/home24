@@ -1,6 +1,6 @@
 import { ICategory } from "@/models/category/ICategory";
 import AbstractProduct from "../AbstractProduct";
-import ILampProduct from "./ILampProduct";
+import ILampProduct, { ISerializedLampProduct } from "./ILampProduct";
 
 class LampProduct extends AbstractProduct implements ILampProduct {
     wattage: number;
@@ -26,6 +26,24 @@ class LampProduct extends AbstractProduct implements ILampProduct {
 
     toString(): string {
         return `${this.name} (${this.category.name}) - $${this.getFormattedPrice()}, Wattage: ${this.wattage}W, Bulb Type: ${this.bulbType}, Dimmable: ${this.isDimmable}`;
+    }
+
+    serialize(): ISerializedLampProduct {
+        return {
+            ...super.serialize(),
+            wattage: this.wattage,
+            bulbType: this.bulbType,
+            isDimmable: this.isDimmable,
+        };
+    }
+
+    deserialize(data: ISerializedLampProduct): void {
+        super.deserialize(data);
+        if (data) {
+            this.wattage = data["wattage"];
+            this.bulbType = data["bulbType"];
+            this.isDimmable = data["isDimmable"];
+        }
     }
 }
 

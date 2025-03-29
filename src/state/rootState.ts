@@ -6,7 +6,7 @@ export interface IRootState {
 }
 
 const rootReducer = combineReducers({
-    product: productSliceReducer,
+    productReducer: productSliceReducer,
 });
 
 export default rootReducer;
