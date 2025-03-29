@@ -8,15 +8,15 @@ import { ApiResponse } from '@/types/api';
 
 function* loginRequestSaga(action: PayloadAction<ILoginRequest>) {
     try {
+        const navigator = action.payload.navigator;
+        delete action.payload.navigator;
         const bodyParams = action.payload;
 
         const response: ApiResponse<ILoginResponse> = yield userApi.loginRequest(bodyParams);
 
         if (response.success) {
             yield put(loginSuccess(response.data));
-            //@ts-ignore
-            const router: any = yield call(useRouter);
-            yield call([router, router.push], '/product');
+            yield call(navigator.push('product'));
         }
         else {
             // TODO: error notification

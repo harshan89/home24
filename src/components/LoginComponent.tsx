@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
 import { userLoginRequest } from "@/services/userService";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 const LoginComponent = () => {
-  const navigate = useRouter();
+  const navigator = useRouter();
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -16,8 +16,7 @@ const LoginComponent = () => {
 
     if (username === "" && password === "") return false;
 
-    navigate?.push("/product");
-    // userLoginRequest({ username, password });
+    userLoginRequest({ username, password, navigator });
   };
 
   return (
