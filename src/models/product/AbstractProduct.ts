@@ -1,19 +1,21 @@
 import { ICategory } from "../category/ICategory";
-import IProduct from "./IProduct";
+import IProduct, { ISerializedProduct } from "./IProduct";
 
 abstract class AbstractProduct implements IProduct {
     id?: number;
     name: string;
     price: number;
     stockQuantity: number;
+    categoryType: string;
     category: ICategory;
     description?: string;
 
-    constructor(id: number, name: string, price: number, stockQuantity: number, category: ICategory, description?: string) {
+    constructor(id: number, name: string, price: number, stockQuantity: number, categoryType: string, category: ICategory, description?: string) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.stockQuantity = stockQuantity;
+        this.categoryType = categoryType;
         this.category = category;
         this.description = description;
     }
@@ -32,6 +34,30 @@ abstract class AbstractProduct implements IProduct {
 
     toString(): string {
         return `${this.name} (ID: ${this.id}, Category: ${this.category.name}) - $${this.getFormattedPrice()}`;
+    }
+
+    serialize(): ISerializedProduct {
+        return {
+            id: this.id,
+            name: this.name,
+            price: this.price,
+            stockQuantity: this.stockQuantity,
+            categoryType: this.categoryType,
+            category: this.category,
+            description: this.description,
+        };
+    }
+
+    deserialize(data: ISerializedProduct): void {
+        if (data) {
+            this.id = data["id"];
+            this.name = data["name"];
+            this.price = data["price"];
+            this.stockQuantity = data["stockQuantity"];
+            this.categoryType = data["categoryType"];
+            this.category = data["category"];
+            this.description = data["description"];
+        }
     }
 }
 

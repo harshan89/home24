@@ -1,6 +1,6 @@
 import { ICategory } from "@/models/category/ICategory";
 import AbstractProduct from "../AbstractProduct";
-import IBathroomProduct from "./IBathroomProduct";
+import IBathroomProduct, { ISerializedBathroomProduct } from "./IBathroomProduct";
 
 class BathroomProduct extends AbstractProduct implements IBathroomProduct {
     waterproof: boolean;
@@ -11,18 +11,35 @@ class BathroomProduct extends AbstractProduct implements IBathroomProduct {
         name: string,
         price: number,
         stockQuantity: number,
+        categoryType: string,
         category: ICategory,
         waterproof: boolean,
         installationType: string,
         description?: string,
     ) {
-        super(id, name, price, stockQuantity, category, description);
+        super(id, name, price, stockQuantity, categoryType, category, description);
         this.waterproof = waterproof;
         this.installationType = installationType;
     }
 
     toString(): string {
         return `${this.name} (${this.category.name}) - $${this.getFormattedPrice()}, `;
+    }
+
+    serialize(): ISerializedBathroomProduct {
+        return {
+            ...super.serialize(),
+            waterproof: this.waterproof,
+            installationType: this.installationType,
+        };
+    }
+
+    deserialize(data: ISerializedBathroomProduct): void {
+        super.deserialize(data);
+        if (data) {
+            this.waterproof = data["waterproof"];
+            this.installationType = data["installationType"];
+        }
     }
 }
 
