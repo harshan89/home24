@@ -7,9 +7,10 @@ import { AnyObject } from "antd/es/_util/type";
 interface Props<T> {
   dataSource: T[];
   columns: ColumnType<T>[];
+  onRowSelect?: (item: T) => void;
 }
 
-const TableComponent = <T,>({ dataSource, columns }: Props<T>) => {
+const TableComponent = <T,>({ dataSource, columns, onRowSelect }: Props<T>) => {
   const [, setData] = useState<T[]>();
   const [loading] = useState(false);
   const [tableParams, setTableParams] = useState<AnyObject>({
@@ -46,6 +47,13 @@ const TableComponent = <T,>({ dataSource, columns }: Props<T>) => {
       pagination={tableParams.pagination}
       loading={loading}
       onChange={handleTableChange}
+      onRow={(record) => ({
+        onClick: () => {
+          if (onRowSelect) {
+            onRowSelect(record);
+          }
+        },
+      })}
     />
   );
 };

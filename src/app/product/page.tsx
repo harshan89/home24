@@ -1,7 +1,7 @@
 "use client";
 
-import React, { Suspense, useEffect } from "react";
-import { Layout, Spin, theme } from "antd";
+import React, { Suspense, useEffect, useState } from "react";
+import { Button, Drawer, DrawerProps, Layout, Space, Spin, theme } from "antd";
 import { fetchProductList } from "@/services/productService";
 import { getCategoryRequest } from "@/services/categoryService";
 import LeftMenu from "@/components/LeftMenu";
@@ -10,14 +10,30 @@ import { categoryListSelector } from "@/state/category/categoryState";
 import TableComponent from "@/components/TableComponent";
 import { productListSelector } from "@/state/product/productState";
 import { ColumnsType } from "antd/es/table";
-import { ISerializedProduct } from "@/models/product/IProduct";
+import IProduct, { ISerializedProduct } from "@/models/product/IProduct";
 import LastModifiedProduct from "@/components/LastModifiedProduct";
+import createProductModelHelper, {
+  IProductSerializedUnion,
+} from "@/models/product/createProductModelHelper";
+import ProductDetailComponent from "@/components/ProductDetailComponent";
 
 const { Content, Footer } = Layout;
 
 const App: React.FC = () => {
+  const [open, setOpen] = useState(false);
+  const [size, setSize] = useState<DrawerProps["size"]>();
   const categoryList = useSelector(categoryListSelector);
   const productList = useSelector(productListSelector);
+  const [selectedProduct, setSelectedProduct] = useState<IProduct>();
+
+  const showProductDetailDrawer = () => {
+    setSize("large");
+    setOpen(true);
+  };
+
+  const closeProductDetailDrawer = () => {
+    setOpen(false);
+  };
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -32,7 +48,7 @@ const App: React.FC = () => {
     getCategoryRequest();
   }, []);
 
-  const productTableColumns: ColumnsType<Partial<ISerializedProduct>> = [
+  const productTableColumns: ColumnsType<ISerializedProduct> = [
     {
       title: "Product name",
       dataIndex: "name",
@@ -67,6 +83,14 @@ const App: React.FC = () => {
     },
   ];
 
+  const onProductSelect = (product: ISerializedProduct) => {
+    showProductDetailDrawer();
+    const productModel = createProductModelHelper(
+      product as IProductSerializedUnion
+    );
+    productModel && setSelectedProduct(productModel);
+  };
+
   return (
     <Suspense fallback={<Spin size="large" />}>
       <Layout style={{ minHeight: "100vh" }}>
@@ -85,7 +109,27 @@ const App: React.FC = () => {
               <TableComponent
                 dataSource={productList!}
                 columns={productTableColumns}
+                onRowSelect={onProductSelect}
               />
+              <Drawer
+                title={selectedProduct?.name}
+                placement="right"
+                size={size}
+                onClose={closeProductDetailDrawer}
+                open={open}
+                extra={
+                  <Space>
+                    <Button onClick={closeProductDetailDrawer}>Cancel</Button>
+                    <Button type="primary" onClick={closeProductDetailDrawer}>
+                      OK
+                    </Button>
+                  </Space>
+                }
+              >
+                {selectedProduct && (
+                  <ProductDetailComponent product={selectedProduct} />
+                )}
+              </Drawer>
             </div>
           </Content>
           <Footer style={{ textAlign: "center" }}>Home24 - Harshan</Footer>
