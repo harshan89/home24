@@ -1,74 +1,80 @@
-import { ICategory, CategoryType } from "../category/ICategory";
+import { CategoryType } from "../category/ICategory";
 import BathroomProduct from "./bathroomProduct/BathroomProduct";
+import { ISerializedBathroomProduct } from "./bathroomProduct/IBathroomProduct";
 import FurnitureProduct from "./furnitureProduct/FurnitureProduct";
+import { ISerializedFurnitureProduct } from "./furnitureProduct/IFurnitureProduct";
 import GardenProduct from "./gardenProduct/GardenProduct";
-import Product from "./IProduct";
+import { ISerializedGardenProduct } from "./gardenProduct/IGardenProduct";
+import IProduct from "./IProduct";
+import { ISerializedLampProduct } from "./lampProduct/ILampProduct";
 import LampProduct from "./lampProduct/LampProduct";
 
-type ProductModelUnion = GardenProduct | FurnitureProduct | LampProduct | BathroomProduct;
+export type IProductSerializedUnion = ISerializedGardenProduct | ISerializedFurnitureProduct | ISerializedLampProduct | ISerializedBathroomProduct;
 
 const createProductModelHelper = (
-    id: number,
-    name: string,
-    price: number,
-    stockQuantity: number,
-    category: ICategory,
-    description?: string,
-    additionalAttributes?: ProductModelUnion,
-): Product => {
-    switch (category.type) {
+    product: IProductSerializedUnion
+): false | IProduct => {
+
+    if (!product)
+        return false
+
+    switch (product.category.type) {
         case CategoryType.FURNITURE:
             return new FurnitureProduct(
-                id,
-                name,
-                price,
-                stockQuantity,
-                category,
-                (additionalAttributes as FurnitureProduct)?.material || "Unknown",
-                (additionalAttributes as FurnitureProduct)?.weightCapacity || 0,
-                (additionalAttributes as FurnitureProduct)?.dimensions || { width: 0, height: 0, depth: 0 },
-                description
+                product.id!,
+                product.name,
+                product.price,
+                product.stockQuantity,
+                product.categoryType,
+                product.category,
+                (product as ISerializedFurnitureProduct).material,
+                (product as ISerializedFurnitureProduct).weightCapacity || 0,
+                (product as ISerializedFurnitureProduct).dimensions || { width: 0, height: 0, depth: 0 },
+                product.description
             ) as FurnitureProduct;
 
         case CategoryType.GARDEN:
             return new GardenProduct(
-                id,
-                name,
-                price,
-                stockQuantity,
-                category,
-                (additionalAttributes as GardenProduct)?.plantType || "Unknown",
-                (additionalAttributes as GardenProduct)?.requiresSunlight || false,
-                description
+                product.id!,
+                product.name,
+                product.price,
+                product.stockQuantity,
+                product.categoryType,
+                product.category,
+                (product as ISerializedGardenProduct).plantType || "",
+                (product as ISerializedGardenProduct).requiresSunlight || false,
+                product.description
             );
 
         case CategoryType.LAMP:
             return new LampProduct(
-                id,
-                name,
-                price,
-                stockQuantity,
-                category,
-                (additionalAttributes as LampProduct)?.wattage || 0,
-                (additionalAttributes as LampProduct)?.bulbType || "Unknown",
-                (additionalAttributes as LampProduct)?.isDimmable || false,
-                description
+                product.id!,
+                product.name,
+                product.price,
+                product.stockQuantity,
+                product.categoryType,
+                product.category,
+                (product as ISerializedLampProduct)?.wattage || 0,
+                (product as ISerializedLampProduct)?.bulbType || "",
+                (product as ISerializedLampProduct)?.isDimmable || false,
+                product.description
             );
 
         case CategoryType.BATHROOM:
             return new BathroomProduct(
-                id,
-                name,
-                price,
-                stockQuantity,
-                category,
-                (additionalAttributes as BathroomProduct)?.waterproof || false,
-                (additionalAttributes as BathroomProduct)?.installationType || "Unknown",
-                description,
+                product.id!,
+                product.name,
+                product.price,
+                product.stockQuantity,
+                product.categoryType,
+                product.category,
+                (product as ISerializedBathroomProduct)?.waterproof || false,
+                (product as ISerializedBathroomProduct)?.installationType || "",
+                product.description,
             );
 
         default:
-            throw new Error(`Category not found: ${category.type}`);
+            throw new Error(`Category not found: ${product.category.type}`);
     }
 };
 

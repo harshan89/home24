@@ -24,3 +24,11 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+table td {
+  padding: 8px !important;
+}
+
+.ant-table-row:hover {
+  cursor: pointer;
+}

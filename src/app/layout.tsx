@@ -1,7 +1,7 @@
 "use client";
 
-import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import "antd/dist/reset.css";
 import "./globals.css";
 import { Provider } from "react-redux";
 import store from "@/state/store";
@@ -23,6 +23,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="favicon.png" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
