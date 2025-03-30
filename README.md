@@ -45,6 +45,11 @@ Used below open source projects to work properly:
 - [Tailwind] - A utility-first CSS framework
 - [node.js] - Nextjs run on top of node.js
 
+## Testing
+
+- Component testing **RTL & Jest** `npm run test`
+- e2e Testing **Cypress** `npm run cypress:open`
+
 ## Installation
 
 Install the dependencies and devDependencies and start the server.
