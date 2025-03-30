@@ -45,6 +45,11 @@ Used below open source projects to work properly:
 - [Tailwind] - A utility-first CSS framework
 - [node.js] - Nextjs run on top of node.js
 
+## Testing
+
+- Component testing **RTL & Jest** `npm run test`
+- e2e Testing **Cypress** `npm run cypress:open`
+
 ## Installation
 
 Install the dependencies and devDependencies and start the server.
@@ -67,6 +72,8 @@ docker run -p 3000:3000 home24-app
 Project has been deploy to Vercel environment
 
 - https://home24-frontend.vercel.app
+- **username**: admin
+- **password**: 123
 
 -- API endpoints:
 - **GET**: https://home24-frontend.vercel.app/api/product

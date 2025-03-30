@@ -39,6 +39,10 @@ export const categoryList: ICategory[] = [
 ];
 
 export const formattedCategoryList = () => {
+    return leftMenuTreeFormatter(categoryList)
+}
+
+export const leftMenuTreeFormatter = (categoryList: ICategory[]): ICategory[] => {
     const categoryMap: Map<number, ICategory> = new Map();
     const formattedList: ICategory[] = [];
 
