@@ -5,7 +5,6 @@ export const getToken = (): string | null => {
 }
 
 export const saveToken = (newToken: string) => {
-    console.log('me called here ')
     localStorage.setItem(TOKEN, newToken);
 };
 
