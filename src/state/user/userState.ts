@@ -27,7 +27,7 @@ export const UserSlice = createSlice({
     }
 });
 
-export const productListSelector = (state: IRootState) => state.productReducer.productList
+export const userNameSelector = (state: IRootState) => state.userReducer.username
 
 export const {
     loginRequest,
