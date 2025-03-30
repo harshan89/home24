@@ -4,11 +4,15 @@ import { fetchProductFailure, fetchProductSuccess } from './productState';
 import { ProductMapper } from '@/mappers/ProductMapper';
 import { ApiResponse } from '@/types/api';
 import { GetProductDTO } from '@/dtos/product/GetProductDTO';
+import { PayloadAction } from '@reduxjs/toolkit';
+import { IProductRequest } from '@/types/product';
 
-function* fetchProductRequestSaga() {
+function* fetchProductRequestSaga(action: PayloadAction<IProductRequest>) {
     try {
+        const urlParams = action.payload;
+
         const response: ApiResponse<GetProductDTO[]> = yield call(() =>
-            productApi.getProductList(0, 5)
+            productApi.getProductList(urlParams)
         );
 
         const productList = ProductMapper.toModels(response.data);

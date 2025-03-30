@@ -18,7 +18,11 @@ const App: React.FC = () => {
   } = theme.useToken();
 
   useEffect(() => {
-    fetchProductList();
+    fetchProductList({
+      page: 0,
+      limit: 10,
+      category: 5,
+    });
     getCategoryRequest();
   }, []);
 
