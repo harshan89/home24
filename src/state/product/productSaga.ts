@@ -1,6 +1,5 @@
 import { productApi } from '@/api';
-import IProduct from '@/models/product/IProduct';
-import { call, put, select, takeEvery } from 'redux-saga/effects';
+import { call, put, takeEvery } from 'redux-saga/effects';
 import { fetchProductFailure, fetchProductSuccess } from './productState';
 import { ProductMapper } from '@/mappers/ProductMapper';
 import { ApiResponse } from '@/types/api';

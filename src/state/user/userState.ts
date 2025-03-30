@@ -18,7 +18,7 @@ export const UserSlice = createSlice({
             state.isLoading = true;
         },
         loginSuccess: (state, action: PayloadAction<ILoginResponse>) => {
-            // state.username = action.payload.username
+            state.username = action.payload.username
             console.log(action.payload)
         },
         loginFailure: (state) => {

@@ -1,4 +1,4 @@
-export async function POST(request: Request, response: Response) {
+export async function POST(request: Request) {
     try {
         const { username, password } = await request.json();
 

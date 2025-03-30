@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useEffect } from "react";
-import { Breadcrumb, Layout, theme } from "antd";
+import React, { Suspense, useEffect } from "react";
+import { Layout, Spin, theme } from "antd";
 import { fetchProductList } from "@/services/productService";
 import { getCategoryRequest } from "@/services/categoryService";
 import LeftMenu from "@/components/LeftMenu";
@@ -18,34 +18,32 @@ const App: React.FC = () => {
   } = theme.useToken();
 
   useEffect(() => {
-    fetchProductList(0, 10);
+    fetchProductList();
     getCategoryRequest();
   }, []);
 
   return (
-    <Layout style={{ minHeight: "100vh" }}>
-      <LeftMenu categoryList={categoryList} />
-      <Layout>
-        {/* <Header style={{ padding: 0, background: colorBgContainer }} /> */}
-        <Content style={{ margin: "0 16px" }}>
-          {/* <Breadcrumb style={{ margin: "16px 0" }}>
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
-          </Breadcrumb> */}
-          <div
-            style={{
-              padding: 24,
-              minHeight: 360,
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
-          >
-            <TableComponent />
-          </div>
-        </Content>
-        <Footer style={{ textAlign: "center" }}>Home24 - Harshan</Footer>
+    <Suspense fallback={<Spin size="large" />}>
+      <Layout style={{ minHeight: "100vh" }}>
+        <LeftMenu categoryList={categoryList} />
+        <Layout>
+          <Header />
+          <Content style={{ margin: "0 16px" }}>
+            <div
+              style={{
+                padding: 24,
+                minHeight: 360,
+                background: colorBgContainer,
+                borderRadius: borderRadiusLG,
+              }}
+            >
+              <TableComponent />
+            </div>
+          </Content>
+          <Footer style={{ textAlign: "center" }}>Home24 - Harshan</Footer>
+        </Layout>
       </Layout>
-    </Layout>
+    </Suspense>
   );
 };
 

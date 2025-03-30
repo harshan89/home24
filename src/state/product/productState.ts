@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IRootState } from '../rootState';
-import IProduct, { ISerializedProduct } from '@/models/product/IProduct';
+import { ISerializedProduct } from '@/models/product/IProduct';
 
 export interface IProductSlice {
     productList: ISerializedProduct[] | null;

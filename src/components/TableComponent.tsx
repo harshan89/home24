@@ -1,4 +1,3 @@
-/* eslint-disable compat/compat */
 import React, { useState } from "react";
 import type { GetProp, TableProps } from "antd";
 import { Table } from "antd";
@@ -25,7 +24,7 @@ const columns: ColumnsType<Partial<ISerializedProduct>> = [
   {
     title: "Product name",
     dataIndex: "name",
-    sorter: (a, b) => a.name!.length - b.name!.length,
+    sorter: (a, b) => a.name!.localeCompare(b.name!),
   },
   {
     title: "Category Type",
@@ -56,8 +55,8 @@ const columns: ColumnsType<Partial<ISerializedProduct>> = [
 ];
 
 const TableComponent: React.FC = () => {
-  const [data, setData] = useState<Partial<ISerializedProduct>[]>();
-  const [loading, setLoading] = useState(false);
+  const [, setData] = useState<Partial<ISerializedProduct>[]>();
+  const [loading,] = useState(false);
   const [tableParams, setTableParams] = useState<TableParams>({
     pagination: {
       current: 1,

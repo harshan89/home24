@@ -20,7 +20,7 @@ function* loginRequestSaga(action: PayloadAction<ILoginRequest>) {
         else {
             // TODO: error notification
         }
-    } catch (error) {
+    } catch {
         yield put(loginFailure());
     }
 }
