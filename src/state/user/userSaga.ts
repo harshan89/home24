@@ -4,6 +4,7 @@ import { ILoginRequest, ILoginResponse } from '@/types/user';
 import { userApi } from '@/api';
 import { loginFailure, loginSuccess } from './userState';
 import { ApiResponse } from '@/types/api';
+import { saveToken } from '@/utils/localStorageHelper';
 
 function* loginRequestSaga(action: PayloadAction<ILoginRequest>) {
     try {
@@ -14,6 +15,7 @@ function* loginRequestSaga(action: PayloadAction<ILoginRequest>) {
         const response: ApiResponse<ILoginResponse> = yield userApi.loginRequest(bodyParams);
 
         if (response.success) {
+            saveToken(response.data.username);
             yield put(loginSuccess(response.data));
             yield call(navigator.push('product'));
         }

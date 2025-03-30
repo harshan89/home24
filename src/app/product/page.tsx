@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Suspense, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Drawer, DrawerProps, Layout, Space, Spin, theme } from "antd";
 import { fetchProductList } from "@/services/productService";
 import { getCategoryRequest } from "@/services/categoryService";
@@ -11,20 +11,24 @@ import TableComponent from "@/components/TableComponent";
 import { productListSelector } from "@/state/product/productState";
 import { ColumnsType } from "antd/es/table";
 import IProduct, { ISerializedProduct } from "@/models/product/IProduct";
-import LastModifiedProduct from "@/components/LastModifiedProduct";
 import createProductModelHelper, {
   IProductSerializedUnion,
 } from "@/models/product/createProductModelHelper";
 import ProductDetailComponent from "@/components/ProductDetailComponent";
+import { getToken } from "@/utils/localStorageHelper";
+import { useRouter } from "next/navigation";
+import Header from "@/components/Header";
 
 const { Content, Footer } = Layout;
 
 const App: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [size, setSize] = useState<DrawerProps["size"]>();
+  const [username, setUsername] = useState("");
   const categoryList = useSelector(categoryListSelector);
   const productList = useSelector(productListSelector);
   const [selectedProduct, setSelectedProduct] = useState<IProduct>();
+  const navigator = useRouter();
 
   const showProductDetailDrawer = () => {
     setSize("large");
@@ -40,12 +44,18 @@ const App: React.FC = () => {
   } = theme.useToken();
 
   useEffect(() => {
-    fetchProductList({
-      page: 0,
-      limit: 10,
-      category: 5,
-    });
-    getCategoryRequest();
+    const token = getToken();
+    if (!token) {
+      navigator.push("/");
+    } else {
+      setUsername(token);
+      getCategoryRequest();
+      fetchProductList({
+        page: 0,
+        limit: 10,
+        category: 5,
+      });
+    }
   }, []);
 
   const productTableColumns: ColumnsType<ISerializedProduct> = [
@@ -91,51 +101,51 @@ const App: React.FC = () => {
     productModel && setSelectedProduct(productModel);
   };
 
-  return (
-    <Suspense fallback={<Spin size="large" />}>
-      <Layout style={{ minHeight: "100vh" }}>
-        <LeftMenu categoryList={categoryList} />
-        <Layout>
-          {productList && <LastModifiedProduct product={productList[0]} />}
-          <Content style={{ margin: "0 16px" }}>
-            <div
-              style={{
-                padding: 24,
-                minHeight: 360,
-                background: colorBgContainer,
-                borderRadius: borderRadiusLG,
-              }}
+  return username ? (
+    <Layout style={{ minHeight: "100vh" }}>
+      <LeftMenu categoryList={categoryList} />
+      <Layout>
+        <Header product={productList && productList[0]} />
+        <Content style={{ margin: "0 16px" }}>
+          <div
+            style={{
+              padding: 24,
+              minHeight: 360,
+              background: colorBgContainer,
+              borderRadius: borderRadiusLG,
+            }}
+          >
+            <TableComponent
+              dataSource={productList!}
+              columns={productTableColumns}
+              onRowSelect={onProductSelect}
+            />
+            <Drawer
+              title={selectedProduct?.name}
+              placement="right"
+              size={size}
+              onClose={closeProductDetailDrawer}
+              open={open}
+              extra={
+                <Space>
+                  <Button onClick={closeProductDetailDrawer}>Cancel</Button>
+                  <Button type="primary" onClick={closeProductDetailDrawer}>
+                    OK
+                  </Button>
+                </Space>
+              }
             >
-              <TableComponent
-                dataSource={productList!}
-                columns={productTableColumns}
-                onRowSelect={onProductSelect}
-              />
-              <Drawer
-                title={selectedProduct?.name}
-                placement="right"
-                size={size}
-                onClose={closeProductDetailDrawer}
-                open={open}
-                extra={
-                  <Space>
-                    <Button onClick={closeProductDetailDrawer}>Cancel</Button>
-                    <Button type="primary" onClick={closeProductDetailDrawer}>
-                      OK
-                    </Button>
-                  </Space>
-                }
-              >
-                {selectedProduct && (
-                  <ProductDetailComponent product={selectedProduct} />
-                )}
-              </Drawer>
-            </div>
-          </Content>
-          <Footer style={{ textAlign: "center" }}>Home24 - Harshan</Footer>
-        </Layout>
+              {selectedProduct && (
+                <ProductDetailComponent product={selectedProduct} />
+              )}
+            </Drawer>
+          </div>
+        </Content>
+        <Footer style={{ textAlign: "center" }}>Home24 - Harshan</Footer>
       </Layout>
-    </Suspense>
+    </Layout>
+  ) : (
+    <Spin size="large" />
   );
 };
 
