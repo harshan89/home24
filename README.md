@@ -67,6 +67,8 @@ docker run -p 3000:3000 home24-app
 Project has been deploy to Vercel environment
 
 - https://home24-frontend.vercel.app
+- **username**: admin
+- **password**: 123
 
 -- API endpoints:
 - **GET**: https://home24-frontend.vercel.app/api/product
