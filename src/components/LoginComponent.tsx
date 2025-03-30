@@ -1,91 +1,70 @@
 "use client";
 
 import { userLoginRequest } from "@/services/userService";
-import { notification } from "antd";
+import { Button, Form, FormProps, Input } from "antd";
 import { useRouter } from "next/navigation";
-import { createContext } from "react";
 
 const LoginComponent = () => {
   const navigator = useRouter();
-  const [api, contextHolder] = notification.useNotification();
-  const Context = createContext({ name: "Default" });
 
-  const loginErrorNotification = () => {
-    api.error({
-      message: "Enter both Username and Password",
-      description: (
-        <Context.Consumer>
-          {({ name }) => "Username: Admin Password: 123"}
-        </Context.Consumer>
-      ),
-      placement: "topRight",
-    });
+  type FieldType = {
+    username?: string;
+    password?: string;
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    const form = event.target as HTMLFormElement;
-    const username = (form.elements.namedItem("username") as HTMLInputElement)
-      .value;
-    const password = (form.elements.namedItem("password") as HTMLInputElement)
-      .value;
+  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
+    const { username, password } = values;
 
     if (username === "" || password === "") {
-      loginErrorNotification();
       return false;
     }
 
-    userLoginRequest({ username, password, navigator });
+    if (username && password) {
+      userLoginRequest({ username, password, navigator });
+    }
   };
 
+  const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
+    errorInfo
+  ) => {};
+
   return (
-    <Context.Provider value={{ name: "" }}>
-      {contextHolder}
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <form
-          className="bg-white p-6 rounded shadow-md w-full max-w-sm"
-          onSubmit={handleSubmit}
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="border-1 border-[#dadada] p-8 rounded-2xl">
+        <Form
+          name="basic"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+          style={{ maxWidth: 600 }}
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
         >
-          <h2 className="text-2xl font-bold mb-4 text-gray-800">Login</h2>
-          <div className="mb-4">
-            <label
-              htmlFor="username"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Username
-            </label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Enter username"
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Enter password"
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer"
+          <Form.Item<FieldType>
+            label="Username"
+            name="username"
+            rules={[{ required: true, message: "Please input your username!" }]}
           >
-            Login
-          </button>
-        </form>
+            <Input />
+          </Form.Item>
+
+          <Form.Item<FieldType>
+            label="Password"
+            name="password"
+            rules={[{ required: true, message: "Please input your password!" }]}
+          >
+            <Input.Password />
+          </Form.Item>
+
+          <Form.Item label={null}>
+            <Button type="primary" htmlType="submit">
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
       </div>
-    </Context.Provider>
+    </div>
   );
 };
 

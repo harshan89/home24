@@ -8,7 +8,10 @@ import LeftMenu from "@/components/LeftMenu";
 import { useSelector } from "react-redux";
 import { categoryListSelector } from "@/state/category/categoryState";
 import TableComponent from "@/components/TableComponent";
-import { productListSelector } from "@/state/product/productState";
+import {
+  productListSelector,
+  productLoadingSelector,
+} from "@/state/product/productState";
 import { ColumnsType } from "antd/es/table";
 import IProduct, { ISerializedProduct } from "@/models/product/IProduct";
 import createProductModelHelper, {
@@ -27,6 +30,7 @@ const App: React.FC = () => {
   const [username, setUsername] = useState("");
   const categoryList = useSelector(categoryListSelector);
   const productList = useSelector(productListSelector);
+  const productLoading = useSelector(productLoadingSelector);
   const [selectedProduct, setSelectedProduct] = useState<IProduct>();
   const navigator = useRouter();
 
@@ -101,7 +105,7 @@ const App: React.FC = () => {
     productModel && setSelectedProduct(productModel);
   };
 
-  return username ? (
+  return !productLoading ? (
     <Layout style={{ minHeight: "100vh" }}>
       <LeftMenu categoryList={categoryList} />
       <Layout>
@@ -145,7 +149,9 @@ const App: React.FC = () => {
       </Layout>
     </Layout>
   ) : (
-    <Spin size="large" />
+    <div className="flex items-center justify-center h-screen">
+      <Spin size="large" />
+    </div>
   );
 };
 

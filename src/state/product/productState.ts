@@ -30,6 +30,7 @@ export const ProductSlice = createSlice({
 });
 
 export const productListSelector = (state: IRootState) => state.productReducer.productList
+export const productLoadingSelector = (state: IRootState) => state.productReducer.isLoading
 
 export const {
     fetchProductRequest,
