@@ -2,7 +2,7 @@
 
 ## Product Video demo
 
-[![Watch the video](https://github.com/user-attachments/assets/fca9f72d-b4a8-4782-b9e9-a8dc6ca31e76)](https://youtu.be/VSZHjOhECuw)
+![system-dashboard](https://github.com/user-attachments/assets/cb4b0e36-f081-48e6-9da4-2db0722519c6)
 
 ## Product Overview
 
