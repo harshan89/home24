@@ -1,0 +1,17 @@
+describe('Product page', () => {
+    it('Category Menu Test', () => {
+        cy.visit('https://home24-frontend.vercel.app')
+        cy.get('#basic_username').type('admin')
+        cy.get('#basic_password').type('123')
+        cy.get('.ant-btn').click({ force: true })
+        cy.wait(3000)
+        cy.get('[data-row-key="2"] > :nth-child(1)').click({ force: true })
+        cy.wait(2000)
+        cy.get('.anticon.anticon-edit').click({ force: true })
+        cy.wait(2000)
+        cy.get('#basic_product_name').clear().type('Sofa Bed')
+        cy.get('#basic_product_description').clear().type('Stylish sofa')
+        cy.wait(1000)
+        cy.get('.ant-form-item-control-input-content > .ant-btn').click({ force: true })
+    })
+})
