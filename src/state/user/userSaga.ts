@@ -14,16 +14,19 @@ function* loginRequestSaga(action: PayloadAction<ILoginRequest>) {
 
         const response: ApiResponse<ILoginResponse> = yield userApi.loginRequest(bodyParams);
 
-        if (response.success) {
-            saveToken(response.data.username);
-            yield put(loginSuccess(response.data));
-            yield call(navigator.push('product'));
+        try {
+            if (response.success) {
+                saveToken(response.data.username);
+                const successData = response.data
+                successData.notify = action.payload.notify
+                yield put(loginSuccess(response.data));
+                yield call(navigator.push('product'));
+            }
         }
-        else {
-            // TODO: error notification
-        }
+        catch (error) { }
+
     } catch {
-        yield put(loginFailure());
+        yield put(loginFailure(action.payload.notify));
     }
 }
 

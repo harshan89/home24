@@ -7,7 +7,6 @@ export const loginRequest = async (bodyParams: ILoginRequest): Promise<ApiRespon
         const response = await adminApiClient.post("user/login", bodyParams);
         return response.data;
     } catch (error) {
-        console.error("Error while user login:", error);
         throw error;
     }
 }

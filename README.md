@@ -7,7 +7,9 @@ This product has been strategically designed to efficiently manage a large-scale
 
 Since we are not utilizing a micro frontend architecture, the frontend has been structured for scalability by isolating business logic within a dedicated business model layer. Meanwhile, the API layer, leveraging DTO models, ensures smooth communication with the backend. This separation keeps the service layer and Redux/Saga independent, promoting flexibility, maintainability, and resilience as the system grows in complexity.
 
-![project-architecture-with-bg](https://github.com/user-attachments/assets/870b04cb-3321-4a1b-94cf-90ed9b66d835)
+<a href="https://youtu.be/VSZHjOhECuw" target="_blank">
+  <img src="https://github.com/user-attachments/assets/cb4b0e36-f081-48e6-9da4-2db0722519c6" alt="Watch Video" />
+</a>
 
 ### Class Structure (Business Models)
 

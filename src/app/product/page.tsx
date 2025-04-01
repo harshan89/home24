@@ -85,6 +85,7 @@ const App: React.FC = () => {
       filterSearch: true,
       onFilter: (value, record) =>
         record.categoryType!.includes(value as string),
+      responsive: ["lg"]
     },
     {
       title: "Price",
@@ -94,6 +95,7 @@ const App: React.FC = () => {
     {
       title: "Product Description",
       dataIndex: "description",
+      responsive: ["lg"]
     },
   ];
 
@@ -105,12 +107,12 @@ const App: React.FC = () => {
     productModel && setSelectedProduct(productModel);
   };
 
-  return !productLoading ? (
+  return (
     <Layout style={{ minHeight: "100vh" }}>
       <LeftMenu categoryList={categoryList} />
       <Layout>
         <Header product={productList && productList[0]} />
-        <Content style={{ margin: "0 16px" }}>
+        <Content style={{ margin: "0 5px" }}>
           <div
             style={{
               padding: 24,
@@ -119,11 +121,13 @@ const App: React.FC = () => {
               borderRadius: borderRadiusLG,
             }}
           >
-            <TableComponent
-              dataSource={productList!}
-              columns={productTableColumns}
-              onRowSelect={onProductSelect}
-            />
+            <div className="max-w-full overflow-x-auto">
+              <TableComponent
+                dataSource={productList!}
+                columns={productTableColumns}
+                onRowSelect={onProductSelect}
+              />
+            </div>
             <Drawer
               title={selectedProduct?.name}
               placement="right"
@@ -148,10 +152,6 @@ const App: React.FC = () => {
         <Footer style={{ textAlign: "center" }}>Home24 - Harshan</Footer>
       </Layout>
     </Layout>
-  ) : (
-    <div className="flex items-center justify-center h-screen">
-      <Spin size="large" />
-    </div>
   );
 };
 
