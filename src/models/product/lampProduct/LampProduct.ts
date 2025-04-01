@@ -17,9 +17,10 @@ class LampProduct extends AbstractProduct implements ILampProduct {
         wattage: number,
         bulbType: string,
         isDimmable: boolean,
-        description?: string
+        description?: string,
+        image?: string
     ) {
-        super(id, name, price, stockQuantity, categoryType, category, description);
+        super(id, name, price, stockQuantity, categoryType, category, description, image);
         this.wattage = wattage;
         this.bulbType = bulbType;
         this.isDimmable = isDimmable;

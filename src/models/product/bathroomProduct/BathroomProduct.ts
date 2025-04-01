@@ -16,8 +16,9 @@ class BathroomProduct extends AbstractProduct implements IBathroomProduct {
         waterproof: boolean,
         installationType: string,
         description?: string,
+        image?: string,
     ) {
-        super(id, name, price, stockQuantity, categoryType, category, description);
+        super(id, name, price, stockQuantity, categoryType, category, description, image);
         this.waterproof = waterproof;
         this.installationType = installationType;
     }

@@ -8,6 +8,7 @@ export interface ISerializedProduct {
     categoryType: string;
     category: ICategory;
     description?: string;
+    image?: string;
 }
 
 interface IProduct extends ISerializedProduct {

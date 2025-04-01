@@ -17,9 +17,10 @@ class FurnitureProduct extends AbstractProduct implements IFurnitureProduct {
         material: string,
         weightCapacity: number,
         dimensions: { width: number; height: number; depth: number },
-        description?: string
+        description?: string,
+        image?: string
     ) {
-        super(id, name, price, stockQuantity, categoryType, category, description);
+        super(id, name, price, stockQuantity, categoryType, category, description, image);
         this.material = material;
         this.weightCapacity = weightCapacity;
         this.dimensions = dimensions;
