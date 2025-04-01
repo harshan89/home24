@@ -19,15 +19,24 @@ export const UserSlice = createSlice({
         },
         loginSuccess: (state, action: PayloadAction<ILoginResponse>) => {
             state.username = action.payload.username
-            console.log(action.payload)
+            action.payload.notify!({
+                type: "success",
+                message: "Login successful!"
+            })
         },
-        loginFailure: (state) => {
+        loginFailure: (state, action: PayloadAction<ILoginRequest['notify']>) => {
+            action.payload!({
+                type: "error",
+                message: "Enter correct credentials",
+                description: "Username: admin - Password: 123"
+            })
             state.isLoading = false;
         }
     }
 });
 
 export const userNameSelector = (state: IRootState) => state.userReducer.username
+export const isLoadingSelector = (state: IRootState) => state.userReducer.isLoading
 
 export const {
     loginRequest,

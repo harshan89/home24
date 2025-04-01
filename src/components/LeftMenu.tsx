@@ -1,16 +1,23 @@
 import { ICategory } from "@/models/category/ICategory";
-import { Menu } from "antd";
+import { Button, Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
 import Image from "next/image";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import logo from "@/assets/logo.svg";
 import { MenuItemType } from "antd/es/menu/interface";
+import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
+import useScreenSize from "@/hooks/useScreenSize";
 interface Props {
   categoryList: ICategory[];
 }
 
 const LeftMenu: FC<Props> = ({ categoryList }) => {
+  const { screenWidth } = useScreenSize();
   const [collapsed, setCollapsed] = useState(false);
+
+  useEffect(() => {
+    if (screenWidth < 800) setCollapsed(!collapsed);
+  }, [screenWidth]);
 
   const siderStyle: React.CSSProperties = {
     overflow: "auto",
@@ -21,6 +28,7 @@ const LeftMenu: FC<Props> = ({ categoryList }) => {
     bottom: 0,
     scrollbarWidth: "thin",
     scrollbarGutter: "stable",
+    backgroundColor: "#fff",
   };
 
   const generateMenuItems = (categories: ICategory[]): MenuItemType[] => {
@@ -46,8 +54,20 @@ const LeftMenu: FC<Props> = ({ categoryList }) => {
       onCollapse={(value) => setCollapsed(value)}
       style={siderStyle}
     >
-      <div className="flex w-full pl-5 py-4">
-        <Image src={logo} alt="logo" width={100} height={100} />
+      <div className="flex flex-row">
+        <div className="flex w-full pl-5 py-4">
+          <Image src={logo} alt="logo" width={100} height={100} />
+        </div>
+        <Button
+          type="text"
+          icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+          onClick={() => setCollapsed(!collapsed)}
+          style={{
+            fontSize: "16px",
+            width: 64,
+            height: 64,
+          }}
+        />
       </div>
       <Menu
         theme="dark"
