@@ -70,22 +70,18 @@ const App: React.FC = () => {
     },
     {
       title: "Category Type",
-      dataIndex: "categoryType",
+      dataIndex: ["category", "name"],
       filters: [
+        { text: "Bathroom", value: "bathroom" },
         { text: "Furniture", value: "furniture" },
         { text: "Garden", value: "garden" },
         { text: "Lamp", value: "lamp" },
-        { text: "Bathroom", value: "bathroom" },
-        { text: "Kitchen", value: "kitchen" },
-        { text: "Office", value: "office" },
-        { text: "Decor", value: "decor" },
-        { text: "Outdoor", value: "outdoor" },
       ],
       filterMode: "tree",
       filterSearch: true,
       onFilter: (value, record) =>
-        record.categoryType!.includes(value as string),
-      responsive: ["lg"]
+        record.categoryType?.includes(value as string),
+      responsive: ["lg"],
     },
     {
       title: "Price",
@@ -95,7 +91,7 @@ const App: React.FC = () => {
     {
       title: "Product Description",
       dataIndex: "description",
-      responsive: ["lg"]
+      responsive: ["lg"],
     },
   ];
 
@@ -107,7 +103,7 @@ const App: React.FC = () => {
     productModel && setSelectedProduct(productModel);
   };
 
-  return (
+  return !productLoading ? (
     <Layout style={{ minHeight: "100vh" }}>
       <LeftMenu categoryList={categoryList} />
       <Layout>
@@ -152,6 +148,10 @@ const App: React.FC = () => {
         <Footer style={{ textAlign: "center" }}>Home24 - Harshan</Footer>
       </Layout>
     </Layout>
+  ) : (
+    <div className="flex justify-center items-center min-h-screen">
+      <Spin />
+    </div>
   );
 };
 

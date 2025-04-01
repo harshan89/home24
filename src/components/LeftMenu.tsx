@@ -1,3 +1,4 @@
+import React from "react";
 import { ICategory } from "@/models/category/ICategory";
 import { Button, Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
@@ -7,6 +8,7 @@ import logo from "@/assets/logo.svg";
 import { MenuItemType } from "antd/es/menu/interface";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import useScreenSize from "@/hooks/useScreenSize";
+import { filterProductByCategory } from "@/services/productService";
 interface Props {
   categoryList: ICategory[];
 }
@@ -31,13 +33,22 @@ const LeftMenu: FC<Props> = ({ categoryList }) => {
     backgroundColor: "#fff",
   };
 
+  const onSelectCategory = (id: number) => {
+    console.log("category id ", id);
+    filterProductByCategory(id);
+  };
+
   const generateMenuItems = (categories: ICategory[]): MenuItemType[] => {
     return categories.map((category) => {
       if (category.subCategories && category.subCategories.length > 0) {
         return {
           key: category.id,
           label: category.name,
+          icon: category.image
+            ? React.createElement(require("@ant-design/icons")[category.image])
+            : null,
           children: generateMenuItems(category.subCategories),
+          onTitleClick: () => onSelectCategory(category.id),
         };
       }
       return {
@@ -70,9 +81,9 @@ const LeftMenu: FC<Props> = ({ categoryList }) => {
         />
       </div>
       <Menu
-        theme="dark"
-        defaultSelectedKeys={["1"]}
+        theme="light"
         items={generateMenuItems(categoryList)}
+        onSelect={({ key }) => onSelectCategory(parseInt(key))}
       />
     </Sider>
   );

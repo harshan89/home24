@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import LastModifiedProduct from "./LastModifiedProduct";
 import { ISerializedProduct } from "@/models/product/IProduct";
 import { LogoutOutlined } from "@ant-design/icons";
@@ -6,13 +6,14 @@ import { Button } from "antd";
 import { useRouter } from "next/navigation";
 import { removeToken } from "@/utils/localStorageHelper";
 import useNotification from "@/hooks/useNotification";
+import useScreenSize from "@/hooks/useScreenSize";
 
 interface Props {
   product: ISerializedProduct | null;
 }
 
 const Header: FC<Props> = ({ product }) => {
-  const [screenWidth] = useState(window.innerWidth);
+  const { screenWidth } = useScreenSize();
   const navigator = useRouter();
   const { notify, contextHolder } = useNotification();
   const onLogout = () => {
@@ -30,7 +31,7 @@ const Header: FC<Props> = ({ product }) => {
     <div className="flex w-full justify-between">
       {contextHolder}
       <div>{product && <LastModifiedProduct product={product} />}</div>
-      <div className="pt-5 pr-5">
+      <div className="py-2 pr-2">
         <Button
           type="primary"
           danger
