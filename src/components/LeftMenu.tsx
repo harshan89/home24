@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { ICategory } from "@/models/category/ICategory";
 import { Button, Menu } from "antd";
@@ -34,7 +36,6 @@ const LeftMenu: FC<Props> = ({ categoryList }) => {
   };
 
   const onSelectCategory = (id: number) => {
-    console.log("category id ", id);
     filterProductByCategory(id);
   };
 

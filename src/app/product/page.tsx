@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { Button, Drawer, DrawerProps, Layout, Space, Spin, theme } from "antd";
 import { fetchProductList } from "@/services/productService";
 import { getCategoryRequest } from "@/services/categoryService";
@@ -9,6 +10,7 @@ import { useSelector } from "react-redux";
 import { categoryListSelector } from "@/state/category/categoryState";
 import TableComponent from "@/components/TableComponent";
 import {
+  lastModifiedProductSelector,
   productListSelector,
   productLoadingSelector,
 } from "@/state/product/productState";
@@ -17,7 +19,7 @@ import IProduct, { ISerializedProduct } from "@/models/product/IProduct";
 import createProductModelHelper, {
   IProductSerializedUnion,
 } from "@/models/product/createProductModelHelper";
-import ProductDetailComponent from "@/components/ProductDetailComponent";
+import ProductDetailComponent from "@/components/product/ProductDetailComponent";
 import { getToken } from "@/utils/localStorageHelper";
 import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
@@ -31,11 +33,12 @@ const App: React.FC = () => {
   const categoryList = useSelector(categoryListSelector);
   const productList = useSelector(productListSelector);
   const productLoading = useSelector(productLoadingSelector);
+  const lastModifiedProduct = useSelector(lastModifiedProductSelector);
   const [selectedProduct, setSelectedProduct] = useState<IProduct>();
   const navigator = useRouter();
 
   const showProductDetailDrawer = () => {
-    setSize("large");
+    setSize("default");
     setOpen(true);
   };
 
@@ -63,6 +66,21 @@ const App: React.FC = () => {
   }, []);
 
   const productTableColumns: ColumnsType<ISerializedProduct> = [
+    {
+      title: "",
+      dataIndex: "image",
+      render: (image: string) => {
+        return image ? (
+          <Image
+            src={image}
+            alt="Ergonomic Chair"
+            width={30}
+            height={30}
+            unoptimized
+          />
+        ) : null;
+      },
+    },
     {
       title: "Product name",
       dataIndex: "name",
@@ -107,7 +125,7 @@ const App: React.FC = () => {
     <Layout style={{ minHeight: "100vh" }}>
       <LeftMenu categoryList={categoryList} />
       <Layout>
-        <Header product={productList && productList[0]} />
+        <Header lastModifiedProduct={lastModifiedProduct} />
         <Content style={{ margin: "0 5px" }}>
           <div
             style={{
@@ -133,14 +151,21 @@ const App: React.FC = () => {
               extra={
                 <Space>
                   <Button onClick={closeProductDetailDrawer}>Cancel</Button>
-                  <Button type="primary" onClick={closeProductDetailDrawer}>
+                  <Button
+                    type="primary"
+                    onClick={closeProductDetailDrawer}
+                    style={{ backgroundColor: "#ff4d4f" }}
+                  >
                     OK
                   </Button>
                 </Space>
               }
             >
               {selectedProduct && (
-                <ProductDetailComponent product={selectedProduct} />
+                <ProductDetailComponent
+                  product={selectedProduct}
+                  closeProductDetailDrawer={closeProductDetailDrawer}
+                />
               )}
             </Drawer>
           </div>

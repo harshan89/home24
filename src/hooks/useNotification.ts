@@ -11,7 +11,7 @@ const useNotification = () => {
         api.open({
             type, message, description
         });
-    }, []);
+    }, [api]);
     return { notify, contextHolder };
 };
 

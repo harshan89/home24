@@ -30,7 +30,8 @@ const createProductModelHelper = (
                 (product as ISerializedFurnitureProduct).material,
                 (product as ISerializedFurnitureProduct).weightCapacity || 0,
                 (product as ISerializedFurnitureProduct).dimensions || { width: 0, height: 0, depth: 0 },
-                product.description
+                product.description,
+                product.image
             ) as FurnitureProduct;
 
         case CategoryType.GARDEN:
@@ -43,7 +44,8 @@ const createProductModelHelper = (
                 product.category,
                 (product as ISerializedGardenProduct).plantType || "",
                 (product as ISerializedGardenProduct).requiresSunlight || false,
-                product.description
+                product.description,
+                product.image
             );
 
         case CategoryType.LAMP:
@@ -57,7 +59,8 @@ const createProductModelHelper = (
                 (product as ISerializedLampProduct)?.wattage || 0,
                 (product as ISerializedLampProduct)?.bulbType || "",
                 (product as ISerializedLampProduct)?.isDimmable || false,
-                product.description
+                product.description,
+                product.image
             );
 
         case CategoryType.BATHROOM:
@@ -71,6 +74,7 @@ const createProductModelHelper = (
                 (product as ISerializedBathroomProduct)?.waterproof || false,
                 (product as ISerializedBathroomProduct)?.installationType || "",
                 product.description,
+                product.image
             );
 
         default:

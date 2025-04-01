@@ -9,10 +9,10 @@ import useNotification from "@/hooks/useNotification";
 import useScreenSize from "@/hooks/useScreenSize";
 
 interface Props {
-  product: ISerializedProduct | null;
+  lastModifiedProduct: ISerializedProduct | null;
 }
 
-const Header: FC<Props> = ({ product }) => {
+const Header: FC<Props> = ({ lastModifiedProduct }) => {
   const { screenWidth } = useScreenSize();
   const navigator = useRouter();
   const { notify, contextHolder } = useNotification();
@@ -30,7 +30,11 @@ const Header: FC<Props> = ({ product }) => {
   return (
     <div className="flex w-full justify-between">
       {contextHolder}
-      <div>{product && <LastModifiedProduct product={product} />}</div>
+      <div>
+        {lastModifiedProduct && (
+          <LastModifiedProduct product={lastModifiedProduct} />
+        )}
+      </div>
       <div className="py-2 pr-2">
         <Button
           type="primary"

@@ -1,20 +1,17 @@
 # 🎥 Product Demo & 📚 Documentation
 
-## Product Video demo
-
-![system-dashboard](https://github.com/user-attachments/assets/cb4b0e36-f081-48e6-9da4-2db0722519c6)
+<a href="https://youtu.be/VSZHjOhECuw" target="_blank">
+  <img src="https://github.com/user-attachments/assets/cb4b0e36-f081-48e6-9da4-2db0722519c6" alt="Watch Demo" />
+</a>
 
 ## Product Overview
-
 This product has been strategically designed to efficiently manage a large-scale application, ensuring seamless scalability as the system expands. It remains highly resilient even in demanding production environments, allowing for rapid modifications to product types without compromising performance or stability.
 
 ## Frontend Architecture
 
 Since we are not utilizing a micro frontend architecture, the frontend has been structured for scalability by isolating business logic within a dedicated business model layer. Meanwhile, the API layer, leveraging DTO models, ensures smooth communication with the backend. This separation keeps the service layer and Redux/Saga independent, promoting flexibility, maintainability, and resilience as the system grows in complexity.
 
-<a href="https://youtu.be/VSZHjOhECuw" target="_blank">
-  <img src="https://github.com/user-attachments/assets/cb4b0e36-f081-48e6-9da4-2db0722519c6" alt="Watch Demo" />
-</a>
+![project-architecture-with-bg](https://github.com/user-attachments/assets/870b04cb-3321-4a1b-94cf-90ed9b66d835)
 
 ### Class Structure (Business Models)
 
@@ -29,7 +26,8 @@ The class structure of this product module has been meticulously designed to uph
 - ✅ See a list of products belonging to a specific category in pages of 5, 10, 20, 50 elements per page
 - ✅ Sort product list by different fields (e.g., id, name) in ascending/descending order
 - ✅ View the product information on a separate product details page
-- ❌ Add/modify attributes of a product. Possible attribute types: "number", "text", "url", "tags", "boolean"
+- ✅ modify attributes of a product. Possible attribute types: "name", "description"
+- ✅ Delete products
 - ✅ See the last modified product in a custom widget on top of the page (custom here means that you have to implement a new component, not using the one that the component library of your choice provides)
 - ✅ Logout from the back office
 

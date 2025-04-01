@@ -9,8 +9,9 @@ abstract class AbstractProduct implements IProduct {
     categoryType: string;
     category: ICategory;
     description?: string;
+    image?: string;
 
-    constructor(id: number, name: string, price: number, stockQuantity: number, categoryType: string, category: ICategory, description?: string) {
+    constructor(id: number, name: string, price: number, stockQuantity: number, categoryType: string, category: ICategory, description?: string, image?: string) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -18,6 +19,7 @@ abstract class AbstractProduct implements IProduct {
         this.categoryType = categoryType;
         this.category = category;
         this.description = description;
+        this.image = image;
     }
 
     isAvailable(): boolean {
@@ -45,6 +47,7 @@ abstract class AbstractProduct implements IProduct {
             categoryType: this.categoryType,
             category: this.category,
             description: this.description,
+            image: this.image
         };
     }
 
@@ -57,6 +60,7 @@ abstract class AbstractProduct implements IProduct {
             this.categoryType = data["categoryType"];
             this.category = data["category"];
             this.description = data["description"];
+            this.image = data['image']
         }
     }
 }

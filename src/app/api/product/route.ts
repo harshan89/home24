@@ -13,7 +13,8 @@ export async function GET() {
                 stockQuantity: 50,
                 material: "Mesh and Metal",
                 weightCapacity: 250,
-                dimensions: { width: 24, height: 40, depth: 24 }
+                dimensions: { width: 24, height: 40, depth: 24 },
+                image: "/product-images/ergonomic-chair.jpg"
             },
             {
                 id: 2,
@@ -25,7 +26,8 @@ export async function GET() {
                 stockQuantity: 30,
                 material: "Fabric and Wood",
                 weightCapacity: 500,
-                dimensions: { width: 80, height: 35, depth: 40 }
+                dimensions: { width: 80, height: 35, depth: 40 },
+                image: "/product-images/convertible-bed.jpg"
             },
             {
                 id: 3,
@@ -37,7 +39,8 @@ export async function GET() {
                 stockQuantity: 25,
                 material: "Oak Wood",
                 weightCapacity: 800,
-                dimensions: { width: 72, height: 30, depth: 36 }
+                dimensions: { width: 72, height: 30, depth: 36 },
+                image: "/product-images/wooden-dining-table.jpg"
             },
             {
                 id: 4,
@@ -49,7 +52,8 @@ export async function GET() {
                 stockQuantity: 40,
                 material: "Engineered Wood",
                 weightCapacity: 100,
-                dimensions: { width: 30, height: 72, depth: 12 }
+                dimensions: { width: 30, height: 72, depth: 12 },
+                image: "/product-images/bookshelf.jpg"
             },
             {
                 id: 5,
@@ -61,7 +65,8 @@ export async function GET() {
                 stockQuantity: 60,
                 material: "MDF and Metal",
                 weightCapacity: 50,
-                dimensions: { width: 18, height: 24, depth: 16 }
+                dimensions: { width: 18, height: 24, depth: 16 },
+                image: "/product-images/modern-nightstand.jpg"
             },
             {
                 id: 6,
@@ -73,7 +78,8 @@ export async function GET() {
                 stockQuantity: 20,
                 material: "Steel and Wood",
                 weightCapacity: 600,
-                dimensions: { width: 60, height: 14, depth: 80 }
+                dimensions: { width: 60, height: 14, depth: 80 },
+                image: "/product-images/bed-frame.jpg"
             },
             {
                 id: 7,
@@ -85,7 +91,8 @@ export async function GET() {
                 stockQuantity: 35,
                 material: "PU Leather and Metal",
                 weightCapacity: 300,
-                dimensions: { width: 26, height: 50, depth: 28 }
+                dimensions: { width: 26, height: 50, depth: 28 },
+                image: "/product-images/gaming-chair.jpg"
             }
         ],
     });
