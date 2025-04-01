@@ -1,7 +1,9 @@
 # 🎥 Product Demo & 📚 Documentation
 
-<a href="https://youtu.be/VSZHjOhECuw" target="_blank">
-  <img src="https://github.com/user-attachments/assets/cb4b0e36-f081-48e6-9da4-2db0722519c6" alt="Watch Demo" />
+## Username: admin - Password: 123
+
+<a href="https://youtu.be/4MfJ9k_26iQ" target="_blank">
+  <img src="https://github.com/user-attachments/assets/f75d3751-7828-4037-961a-2da9cd8f6f04" alt="Watch Demo" />
 </a>
 
 ## Product Overview
