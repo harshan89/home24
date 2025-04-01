@@ -1,6 +1,11 @@
 # 🎥 Product Demo & 📚 Documentation
 
+## Product Video demo
+
+![system-dashboard](https://github.com/user-attachments/assets/cb4b0e36-f081-48e6-9da4-2db0722519c6)
+
 ## Product Overview
+
 This product has been strategically designed to efficiently manage a large-scale application, ensuring seamless scalability as the system expands. It remains highly resilient even in demanding production environments, allowing for rapid modifications to product types without compromising performance or stability.
 
 ## Frontend Architecture
