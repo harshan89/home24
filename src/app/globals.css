@@ -33,6 +33,6 @@ table td {
   cursor: pointer;
 }
 
-.ant-layout-sider-children {
-  width: 106%;
+.ant-menu.ant-menu-root.ant-menu-vertical {
+  border-inline-end: #fff;
 }

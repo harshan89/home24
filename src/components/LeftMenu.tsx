@@ -65,6 +65,7 @@ const LeftMenu: FC<Props> = ({ categoryList }) => {
       collapsed={collapsed}
       onCollapse={(value) => setCollapsed(value)}
       style={siderStyle}
+      trigger={null}
     >
       <div className="flex flex-row">
         <div className="flex w-full pl-5 py-4">
